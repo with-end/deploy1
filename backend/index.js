@@ -11,7 +11,7 @@ const { PORT } = require("./config/dotenv.config.js");
 dotenv.config() ; // we can also do like that => require("dotenv").config() ;
 
 
-
+app.get("/" , (req , res) =>{ res.send("Backend is live now")}) ;
 app.use(express.json()) ;
 app.use(cors({
 
