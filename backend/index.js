@@ -15,7 +15,7 @@ dotenv.config() ; // we can also do like that => require("dotenv").config() ;
 app.use(express.json()) ;
 app.use(cors({
 
-    origin : "http://localhost:5173" // origin which can support the server 
+    origin : FRONTEND_URL  // origin which can support the server 
 }));
 
 app.get("/" , (req , res) =>{ res.send("Backend is live now")}) ;
