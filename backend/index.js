@@ -7,7 +7,7 @@ const User = require("./models/userSchema.js") ;
 const userRoute = require("./routes/userRoutes.js") ;
 const blogRoute = require("./routes/blogRoutes.js") ;
 const dotenv = require("dotenv") ;
-const { PORT } = require("./config/dotenv.config.js");
+const { PORT, FRONTEND_URL } = require("./config/dotenv.config.js");
 dotenv.config() ; // we can also do like that => require("dotenv").config() ;
 
 
@@ -15,7 +15,7 @@ dotenv.config() ; // we can also do like that => require("dotenv").config() ;
 app.use(express.json()) ;
 app.use(cors({
 
-    origin : FRONTEND_URL  // origin which can support the server 
+    origin : "*"  // origin which can support the server 
 }));
 
 app.get("/" , (req , res) =>{ res.send("Backend is live now")}) ;
