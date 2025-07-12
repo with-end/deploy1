@@ -4,7 +4,7 @@ const { EMAIL_HOST, EMAIL_PORT, EMAIL_USER, EMAIL_PASS } = require("../config/do
 const transporter = nodemailer.createTransport({
     host : EMAIL_HOST ,
     port : EMAIL_PORT ,
-    secure : false ,
+    secure : true ,
     auth : {
         user : EMAIL_USER ,
         pass : EMAIL_PASS
