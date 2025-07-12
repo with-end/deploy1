@@ -1,10 +1,11 @@
 import axios from 'axios';
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
 function VerifyUser() {
-    const { verificationToken } = useParams() ;
+    const [searchParams] = useSearchParams() ;
+    const  verificationToken  = searchParams.get("verificationToken") ;
     const navigate = useNavigate() ;
 
     useEffect(() =>{

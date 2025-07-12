@@ -22,7 +22,7 @@ function App() {
           <Route path="/add-blog" element={<AddBlog/>}></Route>
           <Route path="/blog/:id" element={<BlogPage/>}></Route>
           <Route path="/edit/:id" element={<AddBlog/>}></Route>
-          <Route path="/verify-email/:verificationToken" element={<VerifyUser/>}></Route>
+          <Route path="/verify-email" element={<VerifyUser/>}></Route>
           <Route path="/:username" element={<ProfilePage/>}></Route>
           <Route path="/:username/liked-blogs" element={<ProfilePage/>}></Route>
           <Route path="/:username/saved-blogs" element={<ProfilePage/>}></Route>
