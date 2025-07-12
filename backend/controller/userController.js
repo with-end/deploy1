@@ -82,7 +82,7 @@ async function createUser(req , res){
          subject : "Email Verification" ,
          text : "Please verify your email" ,
          html : `<h1> Click on the link to verify your email </h1>
-                 <a href="${FRONTEND_URL}/verify-email/${verificationToken}"> Verify Email </a>`
+                 <a href="${FRONTEND_URL}/verify-email?verificationToken=${verificationToken}"> Verify Email </a>`
    })
     
     return res.status(200).json({
@@ -197,7 +197,7 @@ async function Login(req , res ){
          subject : "Email Verification" ,
          text : "Please verify your email" ,
          html : `<h1> Click on the link to verify your email </h1>
-                 <a href="${FRONTEND_URL}/verify-email/${verificationToken}"> Verify Email </a>`
+                 <a href="${FRONTEND_URL}/verify-email?verificationToken=${verificationToken}"> Verify Email </a>`
    })
     
 

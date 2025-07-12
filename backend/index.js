@@ -18,7 +18,7 @@ app.use(cors({
     origin : FRONTEND_URL  // origin which can support the server 
 }));
 
-app.get("/" , (req , res) =>{ res.send("Backend is live now")}) ;
+app.get("/" , (req , res) =>{ res.send("Backend is live now updated")}) ;
 
 app.use("/Api/v1" , userRoute) ;
 app.use("/Api/v1" , blogRoute) ;
