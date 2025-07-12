@@ -11,7 +11,7 @@ function DisplayBlogs({blogs}) {
      
   return (
     <div>
-     { blogs.length > 0 ? blogs.map((blog) =>(
+     { blogs.length > 0 ? blogs?.map((blog) =>(
       <Link to={"/blog/" + blog.blogId} key={blog._id} >
         <div key={blog._id} className="w-full my-5 flex justify-between ">
           <div className="w-[60%] flex flex-col gap-3 max-sm:border-t ">
