@@ -50,7 +50,8 @@ function BlogPage() {
     // const user = JSON.parse(localStorage.getItem("user")) ;
     const {token , email , id : userId , profilePic} = useSelector((state) => state.user) ; // here id is renamed to userId 
     const [isLike , setLike] = useState(false) ;
-    const {likes , comments , content} = useSelector((state) => state.selectedBlog);
+    const [isSaved , setIsSaved] = useState(false) ;
+    const {likes , comments , content , totalSaves } = useSelector((state) => state.selectedBlog);
     const { isOpen } = useSelector((state) => state.comment) ;
     const location = useLocation() ;
 
@@ -60,6 +61,7 @@ function BlogPage() {
         try{
           let { data : {blog}} = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/blogs/${id}`) ;
           setBlogData(blog) ;
+          if(blog.totalSaves.includes(userId)){ setIsSaved((prev) => !prev)} // if user has saved the blog it becomes true
           if(blog.likes.includes(userId)){ setLike((prev) => !prev)} // if user has liked blog then isLike becomes true ;
           dispatch(addSelectedBlog(blog)) ;
   
@@ -151,10 +153,10 @@ function BlogPage() {
             <p className="text-3xl max-sm:text-xl"> {comments?.length} </p>
          </div>
          <div className="flex gap-1">
-      {  blogData.totalSaves.includes(userId)  ?
-           <i className="fi fi-sr-bookmark text-3xl max-sm:text-xl mt-1 " onClick={(e) =>{ handleSaveBlog(blogData._id , token ) ; }} ></i>    :
-           <i className="fi fi-br-bookmark text-3xl max-sm:text-xl mt-1 " onClick={(e) =>{ handleSaveBlog(blogData._id , token ) ; }} ></i>    }
-           <p className="text-3xl max-sm:text-xl "> 2 </p>
+      {  isSaved  ?
+           <i className="fi fi-sr-bookmark text-3xl max-sm:text-xl mt-1 " onClick={(e) =>{ setIsSaved((prev) =>!prev) ; handleSaveBlog(blogData._id , token ) ; dispatch(setSavedBlog(userId)) ; }} ></i>    :
+           <i className="fi fi-br-bookmark text-3xl max-sm:text-xl mt-1 " onClick={(e) =>{ setIsSaved((prev) =>!prev) ; handleSaveBlog(blogData._id , token ) ; dispatch(setSavedBlog(userId)) ;}} ></i>    }
+           <p className="text-3xl max-sm:text-xl "> {totalSaves.length} </p>
          </div>
     </div>
 

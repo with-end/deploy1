@@ -252,7 +252,7 @@ function AddBlog() {
 
     function handleKeyDown(e){
          const tag = e.target.value.trim().toLowerCase() ;
-        if(e.code == "Enter"){
+        if(e.key == "Enter"){
             if( blogData.tags.length > 5){ toast.error("max 6 tags can be added") ;}
             else if( blogData.tags.includes(tag)){ toast.error("duplicate tags can not be added") ;} 
             else{  setBlogData((prev) => ({...prev , tags : [...prev.tags , tag ]})) ; }

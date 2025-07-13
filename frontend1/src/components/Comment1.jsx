@@ -39,7 +39,7 @@ function Comment1() {
 
 
   return (
-    <div className="bg-white h-screen fixed right-0 top-0 w-[400px] border drop-shadow-2xl p-4 overflow-y-scroll">
+    <div className="bg-white h-screen fixed right-0 top-0 max-sm:w-full max-sm:px-2 sm:w-[400px] border drop-shadow-2xl p-4 overflow-y-scroll">
         <div className="flex justify-between items-center ">
           <h1 className="fond-bold text-xl">Comment ({comments.length})</h1>
           <i onClick={() => dispatch(setIsOpen(false))} className="fi fi-br-cross text-xl "></i>

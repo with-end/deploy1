@@ -250,9 +250,10 @@ async function googleAuth( req , res ){
     try{
           const  { accessToken } = req.body ;
           const response = await getAuth().verifyIdToken(accessToken) ;
-          console.log(response) ;
+    
           const { name , email } = response ;
           let user = await User.findOne({email : email}) ;
+         
 
           if(user){     
             // already registered 
@@ -269,6 +270,7 @@ async function googleAuth( req , res ){
              user : {
               name : user.name ,
               email : user.email,
+              username : user.username ,
               id : user._id ,
               profilePic : user.profilePic ,
               token : token 
@@ -283,7 +285,9 @@ async function googleAuth( req , res ){
             }
         
       }
+
           const username = email.split("@")[0] + randomUUID() ;
+          
 
           let  newUser = await User.create({
                 name ,
@@ -304,6 +308,7 @@ async function googleAuth( req , res ){
         user : {
             name : newUser.name ,
             email : newUser.email,
+            username ,
             id : newUser._id ,
             token : token 
         }

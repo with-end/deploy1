@@ -14,9 +14,19 @@ function homePage() {
  // const [blogs , setBlogs] = useState([]) ;
   const [page , setPage]= useState(1) ;
   const dispatch = useDispatch() ;
+  const [tags , setTags] = useState([]) ;
   //const [hasMore , setHasMore] = useState(false) ;
 
   const { hasMore , blogs } = usePagination("blogs" , {} , page , 1) ;
+
+  useEffect(() =>{
+        setTags([]) ;
+     blogs.map((blog) =>{
+        setTags((prev) =>([...prev , ...blog.tags ])) ;
+      } )
+  }, [blogs]) ;
+
+
 
   // async function fetchBlogs(){
   //     let res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/blogs` , { params : { page , limit : 1}}) ;
@@ -42,7 +52,7 @@ function homePage() {
             <h1 className="my-4 text-xl font-semibold "> recommended topics</h1>
             <div className="flex flex-wrap gap-1">
                {
-              ["hay" , "bay" , "no" , "hellow"].map((tag , index) => (
+              tags?.length > 0 && tags.map((tag , index) => (
                   <Link to={`tag/${tag}`}> 
                      <div key={index} className="px-4 py-2 bg-slate-300 text-center rounded-full hover:bg-black hover:text-white ">
                        <p>{tag}</p>

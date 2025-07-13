@@ -17,6 +17,9 @@ function SearchBlogs() {
     const [flag , setFlag] = useState(true) ;
 
  //   const { hasMore , blogs } = usePagination("search-blogs" , {search} , page , 1) ;
+     useEffect(() =>{
+         setBlogs([]) ;
+     } , [search]) ;
 
      useEffect(() =>{
 

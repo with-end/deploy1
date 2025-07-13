@@ -126,10 +126,10 @@ function ProfilePage() {
               <p className="text-base text-slate-600"> {userData.followers.length} followers </p>
               <p className="text-sm text-slate-500 my-3 w-[200px] max-sm:hidden "> {userData.bio} </p>
               { userId == userData._id  ?
-                <button className="px-4 py-2 bg-green-500 rounded-full text-white my-3"
+                <button className="px-4 py-2 bg-green-500 rounded-full max-sm:w-full text-white my-3"
                       > <Link to={"/edit-profile"}>  Edit Profile  </Link>
                 </button>               :
-                <button className="px-4 py-2 bg-green-500 rounded-full text-white my-3"
+                <button className="px-4 py-2 bg-green-500 rounded-full max-sm:w-full text-white my-3"
                       onClick={()=>{ handleFollowCreator( userData._id , token )}} > follow 
                 </button>
 

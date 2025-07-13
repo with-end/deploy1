@@ -16,8 +16,15 @@ function Navbar() {
   const dispatch = useDispatch() ;
 
  useEffect(() =>{
+     let  prevWidth = window.innerWidth
   function handleResize(){
-     setShowSearchBar( window.innerWidth > 640) ;
+     const currWidth = window.innerWidth ;
+     if( currWidth != prevWidth ){
+           prevWidth = currWidth ;
+       setShowSearchBar( window.innerWidth > 640) ;
+
+     }
+    
   }
 
   handleResize() ; // initially runs

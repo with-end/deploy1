@@ -4,11 +4,15 @@ import { formateDate } from '../utils/formateDate';
 import { handleSaveBlog } from './BlogPage';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSavedBlog } from '../utils/selectedBlogSlice';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 function DisplayBlogs({blogs}) {
+    
      const {token , id : userId } = useSelector((state) => state.user) ;
      const dispatch = useDispatch() ;
-     
+
+   
   return (
     <div>
      { blogs.length > 0 ? blogs?.map((blog) =>(
