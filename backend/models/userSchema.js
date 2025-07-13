@@ -11,7 +11,6 @@ const userSchema =new mongoose.Schema({
       },
       password :{
         type : String ,
-        unique : true ,
         select : false ,  // field which is not to give  by default but if you want to get it => User.findOne({username : username}).select("+password")
       },
       username : {
