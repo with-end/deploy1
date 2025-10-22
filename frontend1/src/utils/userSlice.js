@@ -12,6 +12,7 @@ const userSlice = createSlice({
       state.email = action.payload.email;
       state.token = action.payload.token;
       state.username = action.payload.username ;
+      state.id = action.payload.id ;
     //  state.profilePic = action.payload.profilePic ;
       localStorage.setItem("user", JSON.stringify(state));
     },
