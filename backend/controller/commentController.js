@@ -21,6 +21,10 @@ try{
             message: "please enter the comment"
         })
     }
+
+    const io = req.app.get("io") ;
+
+    
    
     const blog = await Blog.findById(id)  ;
    
@@ -43,7 +47,7 @@ try{
     }); 
      
     await Blog.findByIdAndUpdate( id , {$push : { comments : newComment._id }}) ; 
-
+    io.emit("newComment" , newComment ) ;
     return res.status(200).json({
         success : true ,
         message : "comment is added successfully",
@@ -106,7 +110,8 @@ try{
     await Comment.findByIdAndDelete(commentId) ;
 
     
-   
+    const io = req.app.get("io") ;
+    io.emit("deleteComment" , commentId ) ;
 
     return res.status(200).json({
         success : true ,
@@ -156,6 +161,9 @@ try{
                                                        select : "name email"
                                                  })
                                                          }) ;
+
+    const io = req.app.get("io") ;
+    io.emit("editComment" , updateComment ) ;
 
      return res.status(200).json({
         success : true ,
@@ -257,6 +265,9 @@ async function addNestedComment( req , res ){
 
        await Comment.findByIdAndUpdate(parentCommentId , { $push : { replies : newReply._id  }})
 
+       const io = req.app.get("io") ;
+       io.emit("newReply" , newReply) ;
+       
        return res.status(200).json({
         success : true ,
         message : "Reply is added successfully",

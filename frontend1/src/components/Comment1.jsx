@@ -6,7 +6,8 @@ import { deleteCommentAndReply, setCommentLikes, setComments, setReplies, update
 import {formateDate} from '../utils/formateDate.js' ;
 import axios from 'axios';
 import { useState } from 'react';
-
+import { io } from 'socket.io-client' ;
+import { useEffect } from 'react';
 
 function Comment1() {
     const dispatch= useDispatch() ;
@@ -28,7 +29,7 @@ function Comment1() {
           ) ;
 
             toast.success(res.data.message) ;
-            dispatch(setComments(res.data.newComment)) ;
+           // dispatch(setComments(res.data.newComment)) ;
             setComment("") ;
          
 
@@ -112,7 +113,7 @@ function Comment1() {
 
             toast.success(res.data.message) ;
             handleActiveReply(parentCommentId)
-            dispatch(setReplies(res.data.newReply)) ;
+            //dispatch(setReplies(res.data.newReply)) ;
             setReply("") ;
           
      }catch(err){
@@ -132,7 +133,7 @@ function Comment1() {
 
             toast.success(res.data.message) ;
    
-            dispatch(updateComment(res.data.comment)) ;
+           
             setUpdatedCommentContent("") ;
             setCurrEditComment(null) ;
     
@@ -154,16 +155,42 @@ function Comment1() {
 
             toast.success(res.data.message) ;
          
-            dispatch(deleteCommentAndReply(commentId)) ;
+           
              
      }catch(err){
            toast.error(err.response.data.message) ;
   } }
 
+  useEffect(() => {
+    const socket = io(import.meta.env.VITE_BACKEND);
+
+    socket.on("newComment", (comment) => {
+          dispatch(setComments(comment)) ;
+    });
+
+    socket.on("deleteComment", (commentId) => {
+            dispatch(deleteCommentAndReply(commentId)) ;
+      });
+
+   socket.on("editComment", (updatedComment) => {
+            dispatch(updateComment(updatedComment)) ;
+      });
+
+       socket.on("newReply", (newReply) => {
+            dispatch(setReplies( newReply )) ;
+      });
+
+    return () => {
+      socket.disconnect();
+    };
+
+
+   }, []) ;
+
   
 
   return <>
-  { comments.map((commen) =>( 
+  { comments?.map((commen) =>( 
         <> <hr />
           <div className="flex flex-col gap-2 my-4">
              {   currEditComment == commen._id   ? 
