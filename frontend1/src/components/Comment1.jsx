@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsOpen } from '../utils/CommentSlice';
-import axios from 'axios';
+// import axios from 'axios';
 import toast from 'react-hot-toast';
 import { deleteCommentAndReply, setCommentLikes, setComments, setReplies, updateComment } from '../utils/selectedBlogSlice';
 import {formateDate} from '../utils/formateDate.js' ;
+import axios from 'axios';
+import { useState } from 'react';
 
 
 function Comment1() {
@@ -15,6 +16,7 @@ function Comment1() {
     const [ activeReply , setActiveReply ] = useState(null) ;
     const [popOpen , setPopOpen] = useState(null) ;
     const [currEditComment , setCurrEditComment] = useState(null) ;
+    const { username } = useSelector((state) => state.user)
   
   async function handleComment(){
      try{
@@ -39,7 +41,7 @@ function Comment1() {
 
 
   return (
-    <div className="bg-white h-screen fixed right-0 top-0 max-sm:w-full max-sm:px-2 sm:w-[400px] border drop-shadow-2xl p-4 overflow-y-scroll">
+    <div className="bg-white  h-screen fixed right-0 top-0 max-sm:w-full max-sm:px-2 sm:w-[400px] border drop-shadow-2xl p-4 overflow-y-scroll">
         <div className="flex justify-between items-center ">
           <h1 className="fond-bold text-xl">Comment ({comments.length})</h1>
           <i onClick={() => dispatch(setIsOpen(false))} className="fi fi-br-cross text-xl "></i>
@@ -109,7 +111,7 @@ function Comment1() {
           ) ;
 
             toast.success(res.data.message) ;
-      
+            handleActiveReply(parentCommentId)
             dispatch(setReplies(res.data.newReply)) ;
             setReply("") ;
           
@@ -248,7 +250,7 @@ function Comment1() {
                 </div>
              }
                { commen.replies?.length > 0 && 
-                                <div className="pl-4 border-l">
+                                <div className={``}>
                                    <DisplayComment  
                                    comments={commen.replies} 
                                    userId={userId}  

@@ -3,12 +3,16 @@ import Authe from "./pages/Authe.jsx"
 import Navbar from "./components/Navbar.jsx"
 import Home from './components/homePage.jsx'
 import AddBlog from "./pages/AddBlog.jsx"
-import BlogPage from "./pages/BlogPage.jsx"
+// import BlogPage from "./pages/BlogPage.jsx"
 import VerifyUser from "./components/VerifyUser.jsx"
 import ProfilePage from "./pages/ProfilePage.jsx"
 import EditProfilepage from './pages/EditProfilepage.jsx'
 import SearchBlogs from "./pages/SearchBlogs.jsx"
 import Setting from "./components/Setting.jsx"
+import BlogPage from "./pages/BlogPage.jsx"
+import UseAi from "./components/helperAi.jsx"
+import Graph from "./components/Graph.jsx"
+
 
 
 function App() {
@@ -31,7 +35,11 @@ function App() {
           <Route path="/search-blogs" element={<SearchBlogs/>}></Route>
           <Route path="/tag/:tag" element={<SearchBlogs/>}></Route>
           <Route path="/setting" element={<Setting/>}></Route>
-        </Route>
+          <Route path="/chatbot" element={<UseAi/>}></Route>
+          <Route path="/graph" element={<Graph/>}></Route>
+        </Route>   
+           
+        
       </Routes>
   
   )

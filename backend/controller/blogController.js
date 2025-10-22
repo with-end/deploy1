@@ -5,7 +5,9 @@ const {verifyJWT} = require("../utils/generateTokens.js") ;
 const  { uploadImage , deleteImageFromCloudinary } = require("../utils/uploadImage.js");
 const fs = require("fs") ;
 const ShortUniqueId = require("short-unique-id") ;
+const { OPENROUTER_API_KEY } = require("../config/dotenv.config.js");
 const { randomUUID } = new ShortUniqueId({length : 10}) ;
+const axios = require('axios') ;
 
 
 
@@ -499,6 +501,40 @@ async function searchBlog( req , res ){
     }
 }
 
+async function chatbot( req , res ){
+     try{
+        const { message } = req.body ;
+        const API_KEY = OPENROUTER_API_KEY ;
+
+        const response = await axios.post(
+         'https://openrouter.ai/api/v1/chat/completions',
+       {
+         model: 'mistralai/mistral-7b-instruct:free',
+         messages: [
+           { role: 'system', content: 'You are a helpful assistant.' },
+           { role: 'user', content: message }
+         ]
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${API_KEY}`, // ✅ Use correct variable
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+
+      const reply = response.data.choices[0].message.content ;
+      res.status(200).json({ reply }) ;
+
+     }catch(err){
+        console.log(err) ;
+        res.status(500).json({
+            message : "there is some problem in chatbot" ,
+            success : 500 
+        })
+     }
+}
+
 
 module.exports = {
     createBlog ,
@@ -508,5 +544,6 @@ module.exports = {
     updateBlog ,
     likeBlog  ,
     saveBlog  ,
-    searchBlog 
+    searchBlog  ,
+    chatbot 
 }

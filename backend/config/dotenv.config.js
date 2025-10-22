@@ -9,6 +9,8 @@ module.exports ={
 
             JWT_SECRET   :  process.env.JWT_SECRET,
 
+            OPENROUTER_API_KEY : process.env.OPENROUTER_API_KEY ,
+
             PORT : process.env.PORT ,
 
             EMAIL_HOST : process.env.EMAIL_HOST ,

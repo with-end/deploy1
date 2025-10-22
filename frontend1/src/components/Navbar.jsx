@@ -94,11 +94,13 @@ function Navbar() {
               <Link to={"/signin"}>
                   <button className="border-black border text-black px-4 py-2 rounded-full">Signin</button>
               </Link>
+              
             </div>
            }
           </div>
           {showPopup ?  
            <div className="bg-gray-100  w-[110px] absolute right-7 top-12 drop-shadow-sm ">
+             <Link to={'/chatbot'}> <p className="popup"> useAi </p></Link>
              <Link to={`/@${username}`}>  <p className="popup">Profile</p>  </Link>
              <Link to={`/edit-profile`}>  <p className="popup">Edit Profile</p>  </Link> 
              <p className="popup" onClick={() => navigate("/setting")}>Setting</p>

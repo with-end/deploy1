@@ -1,5 +1,5 @@
 const express = require("express") ;
-const { getBlogs , getBlogById , createBlog , deleteBlog , updateBlog , likeBlog  , saveBlog , searchBlog } = require("../controller/blogController.js")
+const { getBlogs , getBlogById , createBlog , deleteBlog , updateBlog , likeBlog  , saveBlog , searchBlog, chatbot } = require("../controller/blogController.js")
 const route = express.Router() ; 
 const verifyUser = require("../middleware/auth.js") ; 
 const { deleteComment, addComment, editComment, likeComment , addNestedComment } = require("../controller/commentController.js");
@@ -40,6 +40,8 @@ route.post("/Blogs/comment/:parentCommentId/:id" , verifyUser , addNestedComment
 route.patch("/save-blog/:id" ,verifyUser , saveBlog ) ;
 
 route.get("/search-blogs" , searchBlog) ;
+
+route.post("/chatbot" , chatbot ) ;
 
 
 module.exports = route ;

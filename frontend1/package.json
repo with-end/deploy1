@@ -28,6 +28,7 @@
     "react-hot-toast": "^2.5.2",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.6.2",
+    "recharts": "^3.1.0",
     "short-unique-id": "^5.3.2"
   },
   "devDependencies": {

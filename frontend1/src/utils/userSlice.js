@@ -1,35 +1,37 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialUser = JSON.parse(localStorage.getItem("user")) || { token: null };
+
 const userSlice = createSlice({
-    name : "userSlice" ,
-    initialState : JSON.parse(localStorage.getItem("user")) || { token : null } ,
-    reducers : {
-        login(state , action){
-        //    state.name = action.payload.name ;
-        //    state.email = action.payload.email ;
-        //    state.token = action.payload.token ;   or second method to give value => return action.payload ;
-        localStorage.setItem("user" , JSON.stringify(action.payload)) ;
-        return action.payload ;
-        } ,
-        logout(state , action){
-            localStorage.removeItem("user") ;
-            return {
-                token : null 
-            }
-        } ,
+  name: "userSlice",
+  initialState: initialUser,
+  reducers: {
+    login(state, action) {
+      // ✅ modify draft only (don’t return)
+      state.name = action.payload.name;
+      state.email = action.payload.email;
+      state.token = action.payload.token;
+      state.username = action.payload.username ;
+    //  state.profilePic = action.payload.profilePic ;
+      localStorage.setItem("user", JSON.stringify(state));
+    },
 
-        updateData(state , action){
-            const data = action.payload ;
-            let user = JSON.parse(localStorage.getItem("user")) ;
-            user.showLikesBlog = data.showLikesBlog ;
-            user.showSavedBlog = data.showSavedBlog ;
-            localStorage.setItem("user" , JSON.stringify(user)) ;
-            return {...state , ...data } ;
+    logout() {
+      localStorage.removeItem("user");
+      return { token: null };
+    },
 
-        }
-        
-    } ,
-}) ;
+    updateData(state, action) {
+      const data = action.payload;
+      const updatedUser = {
+        ...state,
+        ...data,
+      };
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+      return updatedUser;
+    },
+  },
+});
 
-export const { login , logout , updateData  } = userSlice.actions ;
-export default userSlice.reducer ;
+export const { login, logout, updateData } = userSlice.actions;
+export default userSlice.reducer;

@@ -3,11 +3,11 @@ import {useState} from 'react' ;
 import toast from 'react-hot-toast';
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom';
-import {useDispatch} from 'react-redux'
-import { login } from '../utils/userSlice';
 import Input from '../components/input.jsx'
 import googleIcon from '../assets/googleIcon.svg'
 import { googleAuth } from '../utils/firebase.js';
+import { useDispatch } from 'react-redux';
+import { login } from '../utils/userSlice.js';
 
 
 
@@ -74,10 +74,10 @@ function Authe(props) {
    async function handleGoogleAuth(){
        try{
            let data =await googleAuth() ;
-           
+
            const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/google-auth` , { accessToken : data.accessToken }) ;
 
-        
+          console.log(res.data) ;
            toast.success(res.data.message) ;
            dispatch(login(res.data.user)) ;
            navigate("/") ;
@@ -95,7 +95,7 @@ function Authe(props) {
 
 
   return (
-  <div className="flex flex-col justify-center h-[calc(100vh_-_60px)]  w-full px-2">
+  <div className="flex flex-col  justify-center h-[calc(100vh_-_60px)]  w-full px-2">
     <div className=" w-full max-w-[400px]  bg-slate-200 mx-auto  flex flex-col items-center justify-center gap-7 px-8 ">
        <h1 className="text-3xl "> {props.type == "signup" ? "Sign up" : "Sign In"} </h1>
        <form className="w-[100%] flex flex-col items-center gap-10" 
@@ -153,7 +153,7 @@ function Authe(props) {
           
        </form>
          <p className="text-xl font-medium">or</p>
-         <div className="bg-white  h-[50px] w-full rounded-3xl px-2 flex justify-center items-center hover:text-white hover:bg-blue-400 hover:cursor-pointer gap-2"
+         <div className="bg-white h-[50px] w-full rounded-3xl px-2 flex justify-center items-center hover:text-white hover:bg-blue-400 hover:cursor-pointer gap-2"
               onClick={handleGoogleAuth}>
             <p className="text-lg font-semibold"> Continue with </p>
             <img src={googleIcon} alt="" width="50px" height="50px" />
