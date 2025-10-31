@@ -45,9 +45,10 @@ const selectedBlogSlice = createSlice({
             }
             return state;
         },
+
         setReplies(state , action){
             let newReply = action.payload ;
-
+        
             function findParentComment(comments){
                 let parentComment ;
                 for(const comment of comments ){
@@ -55,7 +56,7 @@ const selectedBlogSlice = createSlice({
                         parentComment = {...comment , replies :[...comment.replies , newReply ]}  ;
                         break;
                     }
-
+                    
                     if( comment.replies.length > 0 ){
                         parentComment = findParentComment(comment.replies) ;
                         if(parentComment){

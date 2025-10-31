@@ -38,6 +38,34 @@ function Comment1() {
   } }
 
 
+  useEffect(() => {
+    const socket = io(import.meta.env.VITE_BACKEND);
+
+    socket.on("newComment", (comment) => {
+          dispatch(setComments(comment)) ;
+    });
+
+    socket.on("deleteComment", (commentId) => {
+            dispatch(deleteCommentAndReply(commentId)) ;
+      });
+
+   socket.on("editComment", (updatedComment) => {
+            dispatch(updateComment(updatedComment)) ;
+      });
+
+      socket.on("newReply", (newReply) => {
+            dispatch(setReplies( newReply )) ;
+      });
+
+    return () => {
+      socket.disconnect();
+    };
+
+
+   }, []) ;
+
+
+
 
 
 
@@ -110,7 +138,7 @@ function Comment1() {
                    Authorization : `Bearer ${token}`
                 }}
           ) ;
-
+          
             toast.success(res.data.message) ;
             handleActiveReply(parentCommentId)
             //dispatch(setReplies(res.data.newReply)) ;
@@ -160,32 +188,6 @@ function Comment1() {
      }catch(err){
            toast.error(err.response.data.message) ;
   } }
-
-  useEffect(() => {
-    const socket = io(import.meta.env.VITE_BACKEND);
-
-    socket.on("newComment", (comment) => {
-          dispatch(setComments(comment)) ;
-    });
-
-    socket.on("deleteComment", (commentId) => {
-            dispatch(deleteCommentAndReply(commentId)) ;
-      });
-
-   socket.on("editComment", (updatedComment) => {
-            dispatch(updateComment(updatedComment)) ;
-      });
-
-       socket.on("newReply", (newReply) => {
-            dispatch(setReplies( newReply )) ;
-      });
-
-    return () => {
-      socket.disconnect();
-    };
-
-
-   }, []) ;
 
   
 
